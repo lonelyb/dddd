@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form layuimini-form" lay-filter="room_change">
+    <div class="layui-form-item">
+        <label class="layui-form-label required">教室ID</label>
+        <div class="layui-input-block">
+            <input type="text"  name="id" lay-verify="required" lay-reqtext="教室ID不能为空" placeholder="请输入教室ID" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">状态</label>
+        <div class="layui-input-block">
+            <input type="radio" name="static" value="启用" title="启用" checked="">
+            <input type="radio" name="static" value="禁用" title="禁用">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">可容纳人数</label>
+        <div class="layui-input-block">
+            <input type="number" name="member" lay-verify="required" lay-reqtext="人数不能为空" placeholder="请输入容纳人数" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">地点</label>
+        <div class="layui-input-block">
+            <input type="text" name="address" lay-verify="required" lay-reqtext="地点不能为空" placeholder="请输入地点" value="" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label required">时间段</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="time" id="time" placeholder=" - ">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+        </div>
+    </div>
+</div>
+</div>
+<script src="../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script>
+    function getQueryString(name) {
+
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = encodeURI(window.location.search).substr(1).match(reg);
+        if (r != null) {
+            return decodeURI(unescape(r[2]));
+        }
+        return null;
+    }
+
+    var room_id = getQueryString("room_id");
+    var state = getQueryString("state");
+    var room_num = getQueryString("room_num");
+    var room_address = getQueryString("room_address")
+    var room_time = getQueryString("room_time")
+
+    if(state=="true"){
+        state="启用";
+    }
+    if(state=="false"){
+        state="禁用";
+    }
+    console.log(state);
+    console.log("rchang",room_id);
+    console.log("room_address",room_address);
+
+    layui.use(['form','laydate'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            laydate = layui.laydate,
+            $ = layui.$;
+
+        form.val("room_change",{
+            "id":room_id,
+            "static":state,
+            "member":room_num,
+            "address":room_address,
+            "time":room_time
+        })
+
+        //时间范围
+        var time = laydate.render({
+            elem: '#time'
+            ,type: 'time'
+            ,format: 'H点m分'
+            ,range: true
+        });
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            data.field["oldRoomId"]=room_id;
+            var index = layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            }, function () {
+
+                $.ajax({
+                    type: "post",
+                    url: "/updateRoom",
+                    data: data.field,
+                    dataType: "json",
+                    async: false,
+                    success:function (data){
+                        if(data.type=="success"){
+
+                            // 更新成功关闭弹出层
+                            layer.close(index);
+                            var iframeIndex = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(iframeIndex);
+                            //弹出更新成功！
+
+                            console.log(data.msg);
+                            layer.alert(data.msg);
+
+                        }else{
+                            console.log(data.msg);
+                            layer.alert(data.msg);
+                        }
+                    }
+                });
+            });
+
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

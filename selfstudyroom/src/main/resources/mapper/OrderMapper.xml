@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.selfstudyroom.mapper.OrderMapper">
+
+    <select id="selectAll" resultType="com.test.selfstudyroom.entity.Order">
+        select * from orders LIMIT #{before},#{after}
+    </select>
+
+    <select id="findOrderCount" resultType="int">
+        select count(*) from orders;
+    </select>
+
+    <select id="selectById" parameterType="string" resultType="com.test.selfstudyroom.entity.Order">
+        select * from orders where order_id=#{order_id}
+    </select>
+
+    <delete id="delById" parameterType="string">
+        delete from orders where order_id=#{order_id}
+    </delete>
+
+    <delete id="deleteBatch" >
+        delete from orders where order_id in
+        <foreach collection="list" item="order_id" index="no" open="(" separator="," close=")">
+            #{order_id}
+        </foreach>
+    </delete>
+
+
+</mapper>

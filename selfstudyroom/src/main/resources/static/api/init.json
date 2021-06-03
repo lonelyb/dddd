@@ -1,0 +1,80 @@
+{
+  "homeInfo": {
+    "title": "首页",
+    "href": "page/welcome.html?t=1"
+  },
+  "logoInfo": {
+    "title": "后台管理",
+    "image": "images/logo.jpg",
+    "href": ""
+  },
+  "menuInfo": [
+    {
+      "title": "常规管理",
+      "icon": "fa fa-address-book",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "教室",
+          "href": "",
+          "icon": "fa fa-home",
+          "target": "_self",
+          "child": [
+            {
+              "title": "教室信息",
+              "href": "page/room.html",
+              "icon": "fa fa-list-alt",
+              "target": "_self"
+            },
+            {
+              "title": "添加教室",
+              "href": "page/room_add.html",
+              "icon": "fa fa-edit",
+              "target": "_self"
+            }
+          ]
+        },
+
+
+        {
+          "title": "预约",
+          "href": "page/order.html",
+          "icon": "fa fa-file-text",
+          "target": "_self"
+        },
+        {
+          "title": "意见",
+          "href": "page/opinion.html",
+          "icon": "fa fa-file-text",
+          "target": "_self"
+        },
+        {
+          "title": "公告",
+          "href": "",
+          "icon": "fa fa-tags",
+          "target": "_self",
+          "child": [
+            {
+              "title": "查看公告",
+              "href": "page/announcement.html",
+              "icon": "fa fa-list-alt",
+              "target": "_self"
+            },
+            {
+              "title": "添加公告",
+              "href": "page/announcement_add.html",
+              "icon": "fa fa-edit",
+              "target": "_self"
+            }
+          ]
+        }
+
+
+
+      ]
+    }
+
+
+  ]
+}

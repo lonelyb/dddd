@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.selfstudyroom.mapper.RoomMapper">
+    <select id="findRoomById" parameterType="string" resultType="com.test.selfstudyroom.entity.RoomEntity">
+            select * from rooms where room_id =#{room_id};
+    </select>
+
+    <select id="findRooms" resultType="com.test.selfstudyroom.entity.RoomEntity">
+        select * from rooms LIMIT #{before},#{after};
+    </select>
+
+    <select id="findRoomsCount" resultType="int">
+        select count(*) from rooms;
+    </select>
+
+    <insert id="addRoom" parameterType="com.test.selfstudyroom.entity.RoomEntity">
+        insert into rooms(state,room_id,room_num,room_address,room_time)
+        values(#{state},#{room_id},#{room_num},#{room_address},#{room_time});
+    </insert>
+
+    <delete id="deleteRoomsById" parameterType="string">
+        delete  from rooms where room_id=#{room_id};
+    </delete>
+
+    <delete id="deleteRooms"  parameterType = "java.util.List">
+        delete from rooms where 1>2
+     or room_id in
+        <foreach collection="list"  item="item" open="(" separator="," close=")"  >
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateRoom" >
+        update rooms set
+            state = #{newRoom.state},
+            room_id = #{newRoom.room_id},
+            room_num = #{newRoom.room_num},
+            room_time = #{newRoom.room_time},
+            room_address = #{newRoom.room_address}
+        where room_id = #{oldRoomId};
+    </update>
+</mapper>

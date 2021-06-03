@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.selfstudyroom.mapper.NoticeMapper">
+
+    <select id="createNotice" parameterType="com.test.selfstudyroom.entity.Notice">
+        insert into notice(id,user_name,notice_content) values(#{id},#{user_name},#{notice_content})
+    </select>
+
+    <select id="selectAll" resultType="com.test.selfstudyroom.entity.Notice">
+        select * from notice LIMIT #{before},#{after};
+    </select>
+
+    <select id="findNoticesCount" resultType="int">
+        select count(*) from notice;
+    </select>
+
+    <select id="selectById" parameterType="Integer" resultType="com.test.selfstudyroom.entity.Notice">
+        select * from notice where id=#{id}
+    </select>
+    
+    <update id="updateNotice" parameterType="com.test.selfstudyroom.entity.Notice">
+        update notice set
+                    user_name=#{user_name},
+                    notice_content=#{notice_content}
+
+
+        where id = #{id}
+    </update>
+
+    <select id="findId" parameterType="com.test.selfstudyroom.entity.Notice" resultType="Integer">
+        select id from notice where user_name=#{user_name} and notice_content=#{notice_content}
+    </select>
+   
+    <delete id="delById" parameterType="Integer">
+        delete from notice where id=#{id}
+    </delete>
+
+    <delete id="deleteBatch" >
+        delete from notice where id in
+        <foreach collection="list" item="id" index="no" open="(" separator="," close=")">
+        #{id}
+    </foreach>
+    </delete>
+
+</mapper>

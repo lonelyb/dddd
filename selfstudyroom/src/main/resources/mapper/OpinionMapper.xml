@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.selfstudyroom.mapper.OpinionMapper">
+
+    <select id="selectAll" resultType="com.test.selfstudyroom.entity.Opinion">
+        select * from opinion LIMIT #{before},#{after}
+    </select>
+
+    <select id="findOpinionCount" resultType="int">
+        select count(*) from opinion;
+    </select>
+
+    <select id="selectById" parameterType="Integer" resultType="com.test.selfstudyroom.entity.Opinion">
+        select * from opinion where student_id=#{student_id}
+    </select>
+
+    <delete id="delById" parameterType="Integer">
+        delete from opinion where student_id=#{student_id}
+    </delete>
+
+    <delete id="deleteBatch" >
+        delete from opinion where student_id in
+        <foreach collection="list" item="student_id" index="no" open="(" separator="," close=")">
+            #{student_id}
+        </foreach>
+    </delete>
+</mapper>

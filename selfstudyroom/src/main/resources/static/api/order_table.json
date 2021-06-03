@@ -1,0 +1,76 @@
+{
+  "code": 0,
+  "msg": "",
+  "count": 1000,
+  "data": [
+    {
+      "order_id": 10000,
+      "room_id": "809",
+      "student_id": "30",
+      "time": "全时段"
+    },
+    {
+      "id": 10001,
+      "static": "禁用",
+      "member": "35",
+      "address": "理科楼",
+      "time": "全时段"
+    },
+    {
+      "id": 10002,
+      "static": "启用",
+      "member": "30",
+      "address": "文科楼",
+      "time": "全时段"
+    },
+    {
+      "id": 10003,
+      "static": "启用",
+      "member": "30",
+      "address": "文科楼",
+      "time": "全时段"
+    },
+    {
+      "id": 10004,
+      "static": "启用",
+      "member": "30",
+      "address": "文科楼",
+      "time": "全时段"
+    },
+    {
+      "id": 10005,
+      "static": "启用",
+      "member": "30",
+      "address": "文科楼",
+      "time": "全时段"
+    },
+    {
+      "id": 10006,
+      "static": "启用",
+      "member": "30",
+      "address": "文科楼",
+      "time": "全时段"
+    },
+    {
+      "id": 10007,
+      "static": "启用",
+      "member": "30",
+      "address": "文科楼",
+      "time": "全时段"
+    },
+    {
+      "id": 10008,
+      "static": "启用",
+      "member": "30",
+      "address": "文科楼",
+      "time": "全时段"
+    },
+    {
+      "id": 10009,
+      "static": "启用",
+      "member": "30",
+      "address": "文科楼",
+      "time": "全时段"
+    }
+  ]
+}
